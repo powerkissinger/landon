@@ -1,8 +1,20 @@
-import React from 'react';
-import gallaryData from "./data/gallary.json"
-
+import React , {useState,useEffect} from 'react';
 
 const Welcome = () =>{
+    const[gallaryData,setGallaryData]=useState([])
+
+    const loadGallaryData=async()=>{
+    //Query the API Gateway
+    const resp = await fetch('https://4l4beffl30.execute-api.ap-southeast-2.amazonaws.com/prod/GalleryImages');
+    let jsonData = await resp.json();
+    //Assign response the data to our state variable
+    setGallaryData(jsonData);
+    }
+    useEffect(() =>{
+    //load the menu links data from the API
+    loadGallaryData();
+    },[])
+        
     return(
         <div className="scene" id="welcome">
         <article className="content">
